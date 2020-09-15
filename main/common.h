@@ -3,6 +3,8 @@
 #include <inttypes.h>
 #include <assert.h>
 
+#include "thirdparty/entt/entt.hpp"
+
 // TODO: not sure whether I'm gonna get used to this...
 typedef int8_t   s8;
 typedef int16_t  s16;

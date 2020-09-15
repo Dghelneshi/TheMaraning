@@ -3,8 +3,8 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
-    <OutDir>$(SolutionDir)\bin\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)\temp\$(Platform)\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)\bin\$(Platform)_$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)\temp\$(Platform)_$(Configuration)\$(ProjectName)\</IntDir>
     <IncludePath>$(IncludePath);$(SolutionDir)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup>
@@ -22,6 +22,7 @@
       <StringPooling>true</StringPooling>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalOptions>/Zc:ternary /Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <ResourceCompile>
       <Culture />

@@ -18,6 +18,9 @@
 #include "main/main.h"
 #include "platform/platform.h"
 
+// this needs to be included in one file on windows
+#include "thirdparty/rpmalloc/rpnew.h"
+
 [[nodiscard]] static std::unique_ptr<char[]> WideCharToUTF8(const wchar_t* wide_string) {
 	int len = WideCharToMultiByte(CP_UTF8, 0, wide_string, -1, nullptr, 0, nullptr, nullptr);
 	std::unique_ptr<char[]> buf(new char[len + 1]);
