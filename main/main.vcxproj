@@ -82,10 +82,18 @@
     <Import Project="..\vs_props\AddressSanitizer.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ASanD|x64'" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ASan|x64'" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <TargetName>TheMaraning</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ASanD|x64'">
+    <TargetName>TheMaraning</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <TargetName>TheMaraning</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ASan|x64'">
+    <TargetName>TheMaraning</TargetName>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -130,6 +138,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\platform\platform.h" />
+    <ClInclude Include="..\platform\win32\win32_platform.h" />
+    <ClInclude Include="..\thirdparty\entt\entt.hpp" />
     <ClInclude Include="common.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>
@@ -139,6 +149,9 @@
     </ProjectReference>
     <ProjectReference Include="..\render\render.vcxproj">
       <Project>{463bd081-65a3-44f4-8617-c6cdffeeda31}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\shared\shared.vcxproj">
+      <Project>{411eda6d-0a5d-4a49-8c78-54a74acaecbf}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

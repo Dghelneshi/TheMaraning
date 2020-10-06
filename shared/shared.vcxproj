@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="ASanD|x64">
+      <Configuration>ASanD</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="ASan|x64">
+      <Configuration>ASan</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\thirdparty\EABase\config\eacompiler.h" />
+    <ClInclude Include="..\thirdparty\EABase\config\eacompilertraits.h" />
+    <ClInclude Include="..\thirdparty\EABase\config\eaplatform.h" />
+    <ClInclude Include="..\thirdparty\EABase\eabase.h" />
+    <ClInclude Include="..\thirdparty\EABase\eahave.h" />
+    <ClInclude Include="..\thirdparty\EABase\earesult.h" />
+    <ClInclude Include="..\thirdparty\EABase\eastdarg.h" />
+    <ClInclude Include="..\thirdparty\EABase\eaunits.h" />
+    <ClInclude Include="..\thirdparty\EABase\int128.h" />
+    <ClInclude Include="..\thirdparty\EABase\nullptr.h" />
+    <ClInclude Include="..\thirdparty\EABase\version.h" />
+    <ClInclude Include="..\thirdparty\EASTL\algorithm.h" />
+    <ClInclude Include="..\thirdparty\EASTL\allocator.h" />
+    <ClInclude Include="..\thirdparty\EASTL\allocator_malloc.h" />
+    <ClInclude Include="..\thirdparty\EASTL\any.h" />
+    <ClInclude Include="..\thirdparty\EASTL\array.h" />
+    <ClInclude Include="..\thirdparty\EASTL\bitset.h" />
+    <ClInclude Include="..\thirdparty\EASTL\bitvector.h" />
+    <ClInclude Include="..\thirdparty\EASTL\bonus\adaptors.h" />
+    <ClInclude Include="..\thirdparty\EASTL\bonus\call_traits.h" />
+    <ClInclude Include="..\thirdparty\EASTL\bonus\compressed_pair.h" />
+    <ClInclude Include="..\thirdparty\EASTL\bonus\fixed_ring_buffer.h" />
+    <ClInclude Include="..\thirdparty\EASTL\bonus\fixed_tuple_vector.h" />
+    <ClInclude Include="..\thirdparty\EASTL\bonus\intrusive_sdlist.h" />
+    <ClInclude Include="..\thirdparty\EASTL\bonus\intrusive_slist.h" />
+    <ClInclude Include="..\thirdparty\EASTL\bonus\list_map.h" />
+    <ClInclude Include="..\thirdparty\EASTL\bonus\lru_cache.h" />
+    <ClInclude Include="..\thirdparty\EASTL\bonus\ring_buffer.h" />
+    <ClInclude Include="..\thirdparty\EASTL\bonus\sort_extra.h" />
+    <ClInclude Include="..\thirdparty\EASTL\bonus\sparse_matrix.h" />
+    <ClInclude Include="..\thirdparty\EASTL\bonus\tuple_vector.h" />
+    <ClInclude Include="..\thirdparty\EASTL\chrono.h" />
+    <ClInclude Include="..\thirdparty\EASTL\core_allocator.h" />
+    <ClInclude Include="..\thirdparty\EASTL\core_allocator_adapter.h" />
+    <ClInclude Include="..\thirdparty\EASTL\deque.h" />
+    <ClInclude Include="..\thirdparty\EASTL\finally.h" />
+    <ClInclude Include="..\thirdparty\EASTL\fixed_allocator.h" />
+    <ClInclude Include="..\thirdparty\EASTL\fixed_function.h" />
+    <ClInclude Include="..\thirdparty\EASTL\fixed_hash_map.h" />
+    <ClInclude Include="..\thirdparty\EASTL\fixed_hash_set.h" />
+    <ClInclude Include="..\thirdparty\EASTL\fixed_list.h" />
+    <ClInclude Include="..\thirdparty\EASTL\fixed_map.h" />
+    <ClInclude Include="..\thirdparty\EASTL\fixed_set.h" />
+    <ClInclude Include="..\thirdparty\EASTL\fixed_slist.h" />
+    <ClInclude Include="..\thirdparty\EASTL\fixed_string.h" />
+    <ClInclude Include="..\thirdparty\EASTL\fixed_substring.h" />
+    <ClInclude Include="..\thirdparty\EASTL\fixed_vector.h" />
+    <ClInclude Include="..\thirdparty\EASTL\functional.h" />
+    <ClInclude Include="..\thirdparty\EASTL\hash_map.h" />
+    <ClInclude Include="..\thirdparty\EASTL\hash_set.h" />
+    <ClInclude Include="..\thirdparty\EASTL\heap.h" />
+    <ClInclude Include="..\thirdparty\EASTL\initializer_list.h" />
+    <ClInclude Include="..\thirdparty\EASTL\internal\allocator_traits.h" />
+    <ClInclude Include="..\thirdparty\EASTL\internal\allocator_traits_fwd_decls.h" />
+    <ClInclude Include="..\thirdparty\EASTL\internal\char_traits.h" />
+    <ClInclude Include="..\thirdparty\EASTL\internal\config.h" />
+    <ClInclude Include="..\thirdparty\EASTL\internal\copy_help.h" />
+    <ClInclude Include="..\thirdparty\EASTL\internal\enable_shared.h" />
+    <ClInclude Include="..\thirdparty\EASTL\internal\fill_help.h" />
+    <ClInclude Include="..\thirdparty\EASTL\internal\fixed_pool.h" />
+    <ClInclude Include="..\thirdparty\EASTL\internal\function.h" />
+    <ClInclude Include="..\thirdparty\EASTL\internal\functional_base.h" />
+    <ClInclude Include="..\thirdparty\EASTL\internal\function_detail.h" />
+    <ClInclude Include="..\thirdparty\EASTL\internal\function_help.h" />
+    <ClInclude Include="..\thirdparty\EASTL\internal\generic_iterator.h" />
+    <ClInclude Include="..\thirdparty\EASTL\internal\hashtable.h" />
+    <ClInclude Include="..\thirdparty\EASTL\internal\integer_sequence.h" />
+    <ClInclude Include="..\thirdparty\EASTL\internal\intrusive_hashtable.h" />
+    <ClInclude Include="..\thirdparty\EASTL\internal\in_place_t.h" />
+    <ClInclude Include="..\thirdparty\EASTL\internal\memory_base.h" />
+    <ClInclude Include="..\thirdparty\EASTL\internal\mem_fn.h" />
+    <ClInclude Include="..\thirdparty\EASTL\internal\move_help.h" />
+    <ClInclude Include="..\thirdparty\EASTL\internal\pair_fwd_decls.h" />
+    <ClInclude Include="..\thirdparty\EASTL\internal\piecewise_construct_t.h" />
+    <ClInclude Include="..\thirdparty\EASTL\internal\red_black_tree.h" />
+    <ClInclude Include="..\thirdparty\EASTL\internal\smart_ptr.h" />
+    <ClInclude Include="..\thirdparty\EASTL\internal\thread_support.h" />
+    <ClInclude Include="..\thirdparty\EASTL\internal\tuple_fwd_decls.h" />
+    <ClInclude Include="..\thirdparty\EASTL\internal\type_compound.h" />
+    <ClInclude Include="..\thirdparty\EASTL\internal\type_fundamental.h" />
+    <ClInclude Include="..\thirdparty\EASTL\internal\type_pod.h" />
+    <ClInclude Include="..\thirdparty\EASTL\internal\type_properties.h" />
+    <ClInclude Include="..\thirdparty\EASTL\internal\type_transformations.h" />
+    <ClInclude Include="..\thirdparty\EASTL\intrusive_hash_map.h" />
+    <ClInclude Include="..\thirdparty\EASTL\intrusive_hash_set.h" />
+    <ClInclude Include="..\thirdparty\EASTL\intrusive_list.h" />
+    <ClInclude Include="..\thirdparty\EASTL\intrusive_ptr.h" />
+    <ClInclude Include="..\thirdparty\EASTL\iterator.h" />
+    <ClInclude Include="..\thirdparty\EASTL\linked_array.h" />
+    <ClInclude Include="..\thirdparty\EASTL\linked_ptr.h" />
+    <ClInclude Include="..\thirdparty\EASTL\list.h" />
+    <ClInclude Include="..\thirdparty\EASTL\map.h" />
+    <ClInclude Include="..\thirdparty\EASTL\memory.h" />
+    <ClInclude Include="..\thirdparty\EASTL\meta.h" />
+    <ClInclude Include="..\thirdparty\EASTL\numeric.h" />
+    <ClInclude Include="..\thirdparty\EASTL\numeric_limits.h" />
+    <ClInclude Include="..\thirdparty\EASTL\optional.h" />
+    <ClInclude Include="..\thirdparty\EASTL\priority_queue.h" />
+    <ClInclude Include="..\thirdparty\EASTL\queue.h" />
+    <ClInclude Include="..\thirdparty\EASTL\random.h" />
+    <ClInclude Include="..\thirdparty\EASTL\ratio.h" />
+    <ClInclude Include="..\thirdparty\EASTL\safe_ptr.h" />
+    <ClInclude Include="..\thirdparty\EASTL\scoped_array.h" />
+    <ClInclude Include="..\thirdparty\EASTL\scoped_ptr.h" />
+    <ClInclude Include="..\thirdparty\EASTL\segmented_vector.h" />
+    <ClInclude Include="..\thirdparty\EASTL\set.h" />
+    <ClInclude Include="..\thirdparty\EASTL\shared_array.h" />
+    <ClInclude Include="..\thirdparty\EASTL\shared_ptr.h" />
+    <ClInclude Include="..\thirdparty\EASTL\slist.h" />
+    <ClInclude Include="..\thirdparty\EASTL\sort.h" />
+    <ClInclude Include="..\thirdparty\EASTL\span.h" />
+    <ClInclude Include="..\thirdparty\EASTL\stack.h" />
+    <ClInclude Include="..\thirdparty\EASTL\string.h" />
+    <ClInclude Include="..\thirdparty\EASTL\string_hash_map.h" />
+    <ClInclude Include="..\thirdparty\EASTL\string_map.h" />
+    <ClInclude Include="..\thirdparty\EASTL\string_view.h" />
+    <ClInclude Include="..\thirdparty\EASTL\tuple.h" />
+    <ClInclude Include="..\thirdparty\EASTL\type_traits.h" />
+    <ClInclude Include="..\thirdparty\EASTL\unique_ptr.h" />
+    <ClInclude Include="..\thirdparty\EASTL\unordered_map.h" />
+    <ClInclude Include="..\thirdparty\EASTL\unordered_set.h" />
+    <ClInclude Include="..\thirdparty\EASTL\utility.h" />
+    <ClInclude Include="..\thirdparty\EASTL\variant.h" />
+    <ClInclude Include="..\thirdparty\EASTL\vector.h" />
+    <ClInclude Include="..\thirdparty\EASTL\vector_map.h" />
+    <ClInclude Include="..\thirdparty\EASTL\vector_multimap.h" />
+    <ClInclude Include="..\thirdparty\EASTL\vector_multiset.h" />
+    <ClInclude Include="..\thirdparty\EASTL\vector_set.h" />
+    <ClInclude Include="..\thirdparty\EASTL\version.h" />
+    <ClInclude Include="..\thirdparty\EASTL\weak_ptr.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\thirdparty\EASTL\source\allocator_eastl.cpp" />
+    <ClCompile Include="..\thirdparty\EASTL\source\assert.cpp" />
+    <ClCompile Include="..\thirdparty\EASTL\source\fixed_pool.cpp" />
+    <ClCompile Include="..\thirdparty\EASTL\source\hashtable.cpp" />
+    <ClCompile Include="..\thirdparty\EASTL\source\intrusive_list.cpp" />
+    <ClCompile Include="..\thirdparty\EASTL\source\numeric_limits.cpp" />
+    <ClCompile Include="..\thirdparty\EASTL\source\red_black_tree.cpp" />
+    <ClCompile Include="..\thirdparty\EASTL\source\string.cpp" />
+    <ClCompile Include="..\thirdparty\EASTL\source\thread_support.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\thirdparty\EASTL\doc\EASTL.natvis" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{411eda6d-0a5d-4a49-8c78-54a74acaecbf}</ProjectGuid>
+    <RootNamespace>shared</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseDebugLibraries>true</UseDebugLibraries>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ASanD|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <EnableASAN>true</EnableASAN>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ASan|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <EnableASAN>true</EnableASAN>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\vs_props\Common.props" />
+    <Import Project="..\vs_props\Debug.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='ASanD|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\vs_props\Common.props" />
+    <Import Project="..\vs_props\Debug.props" />
+    <Import Project="..\vs_props\AddressSanitizer.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\vs_props\Common.props" />
+    <Import Project="..\vs_props\Release.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='ASan|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\vs_props\Common.props" />
+    <Import Project="..\vs_props\Release.props" />
+    <Import Project="..\vs_props\AddressSanitizer.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ASanD|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ASan|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <Link>
+      <SubSystem>
+      </SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ASanD|x64'">
+    <ClCompile>
+      <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <Link>
+      <SubSystem>
+      </SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <Link>
+      <SubSystem>
+      </SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ASan|x64'">
+    <ClCompile>
+      <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <Link>
+      <SubSystem>
+      </SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

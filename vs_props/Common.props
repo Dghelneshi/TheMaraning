@@ -5,14 +5,13 @@
   <PropertyGroup>
     <OutDir>$(SolutionDir)\bin\$(Platform)_$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)\temp\$(Platform)_$(Configuration)\$(ProjectName)\</IntDir>
-    <IncludePath>$(IncludePath);$(SolutionDir)</IncludePath>
+    <IncludePath>$(IncludePath);$(SolutionDir);$(SolutionDir)\thirdparty\</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
       <PreprocessorDefinitions>_HAS_EXCEPTIONS=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <WarningLevel>Level4</WarningLevel>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <DiagnosticsFormat>Caret</DiagnosticsFormat>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <EnableEnhancedInstructionSet>AdvancedVectorExtensions</EnableEnhancedInstructionSet>
       <EnforceTypeConversionRules>true</EnforceTypeConversionRules>

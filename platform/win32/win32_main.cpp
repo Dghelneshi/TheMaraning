@@ -1,44 +1,16 @@
-#define NOMINMAX
-#define WIN32_LEAN_AND_MEAN
-#define NODRAWTEXT
-#define NOGDI
-#define NOMEMMGR
-#define NOSERVICE
-#define NOSOUND
-#define NOWH
-#define NOHELP
-#define NOMCX
-#define NOATOM
-//#define NOCOLOR
-#include <windows.h>
+#include "main/common.h"
+#include "platform/platform.h"
+#include "win32_platform.h"
+#include "main/main.h"
 #include <shellapi.h>
 #include <locale.h>
-
-#include "main/common.h"
-#include "main/main.h"
-#include "platform/platform.h"
 
 // this needs to be included in one file on windows
 #include "thirdparty/rpmalloc/rpnew.h"
 
-[[nodiscard]] static std::unique_ptr<char[]> WideCharToUTF8(const wchar_t* wide_string) {
-	int len = WideCharToMultiByte(CP_UTF8, 0, wide_string, -1, nullptr, 0, nullptr, nullptr);
-	std::unique_ptr<char[]> buf(new char[len + 1]);
-	WideCharToMultiByte(CP_UTF8, 0, wide_string, -1, buf.get(), len, nullptr, nullptr);
-	buf[len] = '\0';
-	return buf;
-}
-
-[[nodiscard]] static std::unique_ptr<wchar_t[]> UTF8ToWideChar(const char* string) {
-	int len = MultiByteToWideChar(CP_UTF8, 0, string, -1, nullptr, 0);
-	std::unique_ptr<wchar_t[]> buf(new wchar_t[len + 1]);
-	MultiByteToWideChar(CP_UTF8, 0, string, -1, buf.get(), len);
-	buf[len] = '\0';
-	return buf;
-}
-
 static HINSTANCE G_hInstance;
 static HWND G_hWnd;
+static double G_QPCFrequencyPerSec;
 
 static LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -46,11 +18,7 @@ static LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARA
 	{
 	case WM_PAINT:
 	{
-		//ValidateRect(hWnd, nullptr);
-		PAINTSTRUCT ps;
-		HDC hdc = BeginPaint(hWnd, &ps);
-		FillRect(hdc, &ps.rcPaint, (HBRUSH)(COLOR_WINDOW + 1));
-		EndPaint(hWnd, &ps);
+		ValidateRect(hWnd, nullptr);
 		return 0;
 	}
 	case WM_DESTROY:
@@ -63,8 +31,63 @@ static LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARA
 	return DefWindowProc(hWnd, message, wParam, lParam);
 }
 
+// Public Win32-specific interface
+namespace Platform::Win32
+{
+	[[nodiscard]] eastl::string WideCharToUTF8(const wchar_t* wide_string) {
+		return eastl::string(eastl::string::CtorConvert{}, wide_string);
+	}
+	[[nodiscard]] eastl::wstring UTF8ToWideChar(const char* string) {
+		return eastl::wstring(eastl::wstring::CtorConvert{}, string);
+	}
+	[[nodiscard]] eastl::string WideCharToUTF8(const eastl::wstring& wide_string) {
+		return eastl::string(eastl::string::CtorConvert{}, wide_string);
+	}
+	[[nodiscard]] eastl::wstring UTF8ToWideChar(const eastl::string& string) {
+		return eastl::wstring(eastl::wstring::CtorConvert{}, string);
+	}
+	[[nodiscard]] char* WideCharToUTF8Raw(const wchar_t* wide_string)
+	{
+		int len = WideCharToMultiByte(CP_UTF8, 0, wide_string, -1, nullptr, 0, nullptr, nullptr);
+		char* res = new char[(size_t)len + 1];
+		WideCharToMultiByte(CP_UTF8, 0, wide_string, -1, res, len, nullptr, nullptr);
+		res[len] = '\0';
+		return res;
+	}
+	[[nodiscard]] wchar_t* UTF8ToWideCharRaw(const char* string)
+	{
+		int len = MultiByteToWideChar(CP_UTF8, 0, string, -1, nullptr, 0);
+		wchar_t* res = new wchar_t[(size_t)len + 1];
+		MultiByteToWideChar(CP_UTF8, 0, string, -1, res, len);
+		res[len] = '\0';
+		return res;
+	}
+	[[nodiscard]] char* WideCharToUTF8Raw(const eastl::wstring& wide_string)
+	{
+		int len = WideCharToMultiByte(CP_UTF8, 0, wide_string.c_str(), -1, nullptr, 0, nullptr, nullptr);
+		char* res = new char[(size_t)len + 1];
+		WideCharToMultiByte(CP_UTF8, 0, wide_string.c_str(), -1, res, len, nullptr, nullptr);
+		res[len] = '\0';
+		return res;
+	}
+	[[nodiscard]] wchar_t* UTF8ToWideCharRaw(const eastl::string& string)
+	{
+		int len = MultiByteToWideChar(CP_UTF8, 0, string.c_str(), -1, nullptr, 0);
+		wchar_t* res = new wchar_t[(size_t)len + 1];
+		MultiByteToWideChar(CP_UTF8, 0, string.c_str(), -1, res, len);
+		res[len] = '\0';
+		return res;
+	}
 
-// Public Interface
+	HINSTANCE GetInstanceHandle() {
+		return G_hInstance;
+	}
+	HWND GetMainWindowHandle() {
+		return G_hWnd;
+	}
+}
+
+// Public generic interface
 namespace Platform
 {
 	void DebugOutputA(const char* string)
@@ -73,10 +96,10 @@ namespace Platform
 	}
 	void DebugOutput(const char* string)
 	{
-		auto wstr = UTF8ToWideChar(string);
-		OutputDebugStringW(wstr.get());
+		auto wstr = Win32::UTF8ToWideChar(string);
+		OutputDebugStringW(wstr.c_str());
 	}
-	void DebugOutputPrintfA(const char* format, ...)
+	void DebugOutputPrintfA(PRINTF_FORMAT const char* format, ...)
 	{
 		va_list args;
 		char buffer[512];
@@ -87,7 +110,7 @@ namespace Platform
 
 		OutputDebugStringA(buffer);
 	}
-	void DebugOutputPrintf(const char* format, ...)
+	void DebugOutputPrintf(PRINTF_FORMAT const char* format, ...)
 	{
 		va_list args;
 		char buffer[512];
@@ -96,8 +119,8 @@ namespace Platform
 		vsnprintf(buffer, sizeof(buffer), format, args);
 		va_end(args);
 
-		auto wstr = UTF8ToWideChar(buffer);
-		OutputDebugStringW(wstr.get());
+		auto wstr = Win32::UTF8ToWideChar(buffer);
+		OutputDebugStringW(wstr.c_str());
 	}
 
 	void CreateMainWindow(WindowMode mode)
@@ -147,6 +170,30 @@ namespace Platform
 			nullptr);
 	}
 
+	void SetMainWindowTitle(const char* str)
+	{
+		SetWindowTextW(G_hWnd, Win32::UTF8ToWideChar(str).c_str());
+	}
+
+	void Init()
+	{
+		LARGE_INTEGER f;
+		QueryPerformanceFrequency(&f);
+		G_QPCFrequencyPerSec = 1.0 / double(f.QuadPart);
+	}
+
+	uint64 GetTime()
+	{
+		LARGE_INTEGER t;
+		QueryPerformanceCounter(&t);
+		return (uint64)t.QuadPart;
+	}
+
+	float DeltaSeconds(uint64 begin, uint64 end)
+	{
+		return float((end - begin) * G_QPCFrequencyPerSec);
+	}
+
 	void ProcessMessages()
 	{
 		MSG msg;
@@ -156,7 +203,6 @@ namespace Platform
 		}
 	}
 }
-
 
 int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow)
 {
@@ -168,12 +214,12 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 	LPWSTR* argv = CommandLineToArgvW(GetCommandLineW(), &argc); // NOTE: pCmdLine doesn't contain the first argv (executable path), so we need to use GetCommandLineW()
 	assert(argv);
 
-	std::unique_ptr<std::unique_ptr<char[]>[]> argv_utf8(new std::unique_ptr<char[]>[argc]);
+	const char** argv_utf8 = new const char*[argc];
 	for (size_t i = 0; i < argc; ++i) {
-		argv_utf8[i] = std::move(WideCharToUTF8(argv[i]));
+		argv_utf8[i] = Platform::Win32::WideCharToUTF8Raw(argv[i]);
 	}
 
 	LocalFree(argv);
 
-	return Main::Main(argc, std::move(argv_utf8));
+	return Main::Main(MainArgs(argc, argv_utf8));
 }

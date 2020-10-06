@@ -103,6 +103,9 @@
       </SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy /D "$(SolutionDir)\thirdparty\dxc\*.dll" "$(TargetDir)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ASanD|x64'">
     <ClCompile>
@@ -113,6 +116,9 @@
       </SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy /D "$(SolutionDir)\thirdparty\dxc\*.dll" "$(TargetDir)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -125,6 +131,9 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy /D "$(SolutionDir)\thirdparty\dxc\*.dll" "$(TargetDir)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ASan|x64'">
     <ClCompile>
@@ -137,9 +146,41 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy /D "$(SolutionDir)\thirdparty\dxc\*.dll" "$(TargetDir)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="render.cpp" />
+    <ClCompile Include="..\thirdparty\D3D12MemoryAllocator\D3D12MemAlloc.cpp">
+      <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='Release|x64'">4100;4127;4189;4324;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4100;4127;4189;4324;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='ASanD|x64'">4100;4127;4189;4324;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='ASan|x64'">4100;4127;4189;4324;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <ClCompile Include="d3d12\d3d12_main.cpp" />
+    <ClCompile Include="d3d12\descriptor_heap.cpp" />
+    <ClCompile Include="d3d12\swap_chain.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\thirdparty\D3D12MemoryAllocator\D3D12MemAlloc.h" />
+    <ClInclude Include="..\thirdparty\D3DX12\d3dx12.h" />
+    <ClInclude Include="..\thirdparty\dxc\d3d12shader.h" />
+    <ClInclude Include="..\thirdparty\dxc\dxcapi.h" />
+    <ClInclude Include="d3d12\d3d12_includes.h" />
+    <ClInclude Include="d3d12\d3d12_main.h" />
+    <ClInclude Include="d3d12\descriptor_heap.h" />
+    <ClInclude Include="d3d12\swap_chain.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="..\thirdparty\dxc\dxcompiler.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="..\thirdparty\D3D12MemoryAllocator\D3D12MemAlloc.natvis" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\shared\shared.vcxproj">
+      <Project>{411eda6d-0a5d-4a49-8c78-54a74acaecbf}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

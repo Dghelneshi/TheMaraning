@@ -1,22 +1,73 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    <Filter Include="thirdparty">
+      <UniqueIdentifier>{58482ecc-9b65-43ca-973e-a71378ef284d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    <Filter Include="render">
+      <UniqueIdentifier>{52373503-1b90-4a40-9f09-1fd7c5bf68b6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    <Filter Include="D3D12">
+      <UniqueIdentifier>{c570ce93-4449-4718-abb6-7e23007c4f28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="thirdparty\D3DX12">
+      <UniqueIdentifier>{74436011-7a48-4ec2-a7a9-bc72c35836db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="thirdparty\dxc">
+      <UniqueIdentifier>{6d1db8d6-2698-43d5-bdd3-5e379ff42a21}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="thirdparty\D3D12MemoryAllocator">
+      <UniqueIdentifier>{eebffa1a-dad7-4eac-a077-a1276f8df915}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="render.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="d3d12\d3d12_main.cpp">
+      <Filter>D3D12</Filter>
     </ClCompile>
+    <ClCompile Include="..\thirdparty\D3D12MemoryAllocator\D3D12MemAlloc.cpp">
+      <Filter>thirdparty\D3D12MemoryAllocator</Filter>
+    </ClCompile>
+    <ClCompile Include="d3d12\descriptor_heap.cpp">
+      <Filter>D3D12</Filter>
+    </ClCompile>
+    <ClCompile Include="d3d12\swap_chain.cpp">
+      <Filter>D3D12</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="d3d12\d3d12_main.h">
+      <Filter>D3D12</Filter>
+    </ClInclude>
+    <ClInclude Include="..\thirdparty\D3DX12\d3dx12.h">
+      <Filter>thirdparty\D3DX12</Filter>
+    </ClInclude>
+    <ClInclude Include="..\thirdparty\dxc\d3d12shader.h">
+      <Filter>thirdparty\dxc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\thirdparty\dxc\dxcapi.h">
+      <Filter>thirdparty\dxc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\thirdparty\D3D12MemoryAllocator\D3D12MemAlloc.h">
+      <Filter>thirdparty\D3D12MemoryAllocator</Filter>
+    </ClInclude>
+    <ClInclude Include="d3d12\descriptor_heap.h">
+      <Filter>D3D12</Filter>
+    </ClInclude>
+    <ClInclude Include="d3d12\d3d12_includes.h">
+      <Filter>D3D12</Filter>
+    </ClInclude>
+    <ClInclude Include="d3d12\swap_chain.h">
+      <Filter>D3D12</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="..\thirdparty\dxc\dxcompiler.lib">
+      <Filter>thirdparty\dxc</Filter>
+    </Library>
+  </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="..\thirdparty\D3D12MemoryAllocator\D3D12MemAlloc.natvis">
+      <Filter>thirdparty\D3D12MemoryAllocator</Filter>
+    </Natvis>
   </ItemGroup>
 </Project>

@@ -12,6 +12,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "render", "render\render.vcx
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MemoryManager", "MemoryManager\MemoryManager.vcxproj", "{14B0E7FA-0C3E-4156-8DC4-010B8CA05B38}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "shared", "shared\shared.vcxproj", "{411EDA6D-0A5D-4A49-8C78-54A74ACAECBF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		ASan|x64 = ASan|x64
@@ -44,6 +46,14 @@ Global
 		{14B0E7FA-0C3E-4156-8DC4-010B8CA05B38}.Debug|x64.Build.0 = Debug|x64
 		{14B0E7FA-0C3E-4156-8DC4-010B8CA05B38}.Release|x64.ActiveCfg = Release|x64
 		{14B0E7FA-0C3E-4156-8DC4-010B8CA05B38}.Release|x64.Build.0 = Release|x64
+		{411EDA6D-0A5D-4A49-8C78-54A74ACAECBF}.ASan|x64.ActiveCfg = ASan|x64
+		{411EDA6D-0A5D-4A49-8C78-54A74ACAECBF}.ASan|x64.Build.0 = ASan|x64
+		{411EDA6D-0A5D-4A49-8C78-54A74ACAECBF}.ASanD|x64.ActiveCfg = ASanD|x64
+		{411EDA6D-0A5D-4A49-8C78-54A74ACAECBF}.ASanD|x64.Build.0 = ASanD|x64
+		{411EDA6D-0A5D-4A49-8C78-54A74ACAECBF}.Debug|x64.ActiveCfg = Debug|x64
+		{411EDA6D-0A5D-4A49-8C78-54A74ACAECBF}.Debug|x64.Build.0 = Debug|x64
+		{411EDA6D-0A5D-4A49-8C78-54A74ACAECBF}.Release|x64.ActiveCfg = Release|x64
+		{411EDA6D-0A5D-4A49-8C78-54A74ACAECBF}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
