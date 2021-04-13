@@ -13,8 +13,7 @@ namespace Main
 	{
 		// ... process argv
 		for (size_t i = 0; i < args.argc; ++i) {
-			Platform::DebugOutput(args.argv[i]);
-			Platform::DebugOutputA("\n");
+			Platform::DebugOutputPrintf("%s\n", args.argv[i]);
 		}
 		// delete our copy of argv
 		args.Destroy();
@@ -24,7 +23,22 @@ namespace Main
 		
 		// TODO: Graphics abstraction layer.
 		D3D12::RenderSystem* d3d = D3D12::RenderSystem::Get();
-		d3d->Init();
+
+		if (!d3d->Init())
+		{
+			const char* fltext = nullptr;
+			switch (d3d->MinFeatureLevel) {
+			case D3D_FEATURE_LEVEL_11_0: fltext = "11_0"; break;
+			case D3D_FEATURE_LEVEL_11_1: fltext = "11_1"; break;
+			case D3D_FEATURE_LEVEL_12_0: fltext = "12_0"; break;
+			case D3D_FEATURE_LEVEL_12_1: fltext = "12_1"; break;
+				//case D3D_FEATURE_LEVEL_12_2: fltext = "12_2"; break;
+			default: assert(false);
+			}
+			eastl::string buf(eastl::string::CtorSprintf{}, "Hardware, operating system and driver support for Direct3D 12 feature level %s is required to run this application.", fltext);
+			Platform::DisplayBlockingErrorMessage(buf);
+			exit(2);
+		}
 
 		while (G_IsRunning)
 		{
@@ -37,8 +51,7 @@ namespace Main
 			
 			float frame_time = Platform::DeltaSeconds(frame_start);
 
-			char buf[128];
-			snprintf(buf, sizeof(buf), "The Maraning - %.3fms\n", frame_time * 1000.0);
+			eastl::string buf(eastl::string::CtorSprintf{}, "The Maraning - %.3fms\n", frame_time * 1000.0);
 			Platform::SetMainWindowTitle(buf);
 
 			Sleep(16);

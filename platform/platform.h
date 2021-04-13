@@ -1,4 +1,6 @@
 #pragma once
+#include <EASTL/string.h>
+#include <EASTL/string_view.h>
 
 enum class WindowMode {
 	FULLSCREEN,
@@ -7,12 +9,15 @@ enum class WindowMode {
 };
 
 namespace Platform {
-	void DebugOutputA(const char* ansi_string);
-	void DebugOutput(const char* string);
-	void DebugOutputPrintfA(PRINTF_FORMAT const char* format, ...);
+	void DebugOutput(eastl::string_view str);
 	void DebugOutputPrintf(PRINTF_FORMAT const char* format, ...);
+
+	// TODO: Window class that can be manipulated
 	void CreateMainWindow(WindowMode mode);
-	void SetMainWindowTitle(const char* str);
+	void SetMainWindowTitle(eastl::string_view str);
+
+	void DisplayBlockingErrorMessage(eastl::string_view message);
+
 	void Init();
 	uint64 GetTime();
 	float DeltaSeconds(uint64 begin, uint64 end = GetTime());

@@ -1,9 +1,6 @@
 #pragma once
-#include "thirdparty/eastl/string.h"
-#include "thirdparty/eastl/unique_ptr.h"
 
-struct MainArgs
-{
+struct MainArgs {
 	const char** argv;
 	int argc;
 
@@ -15,8 +12,7 @@ struct MainArgs
 		other.argc = 0;
 		other.argv = nullptr;
 	}
-	void Destroy()
-	{
+	void Destroy() {
 		for (int i = 0; i < argc; i++)
 		{
 			delete[] argv[i];
@@ -25,8 +21,7 @@ struct MainArgs
 		argc = 0;
 		argv = nullptr;
 	}
-	~MainArgs()
-	{
+	~MainArgs()	{
 		Destroy();
 	}
 };

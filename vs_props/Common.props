@@ -6,10 +6,11 @@
     <OutDir>$(SolutionDir)\bin\$(Platform)_$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)\temp\$(Platform)_$(Configuration)\$(ProjectName)\</IntDir>
     <IncludePath>$(IncludePath);$(SolutionDir);$(SolutionDir)\thirdparty\</IncludePath>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
-      <PreprocessorDefinitions>_HAS_EXCEPTIONS=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_HAS_EXCEPTIONS=0;_WIN32_WINNT=_WIN32_WINNT_WIN10;NTDDI_VERSION=NTDDI_WIN10_19H1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <WarningLevel>Level4</WarningLevel>
       <TreatWarningAsError>true</TreatWarningAsError>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -21,11 +22,15 @@
       <StringPooling>true</StringPooling>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalOptions>/Zc:ternary /Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/Zc:ternary /Zc:__cplusplus /utf-8 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <ResourceCompile>
       <Culture />
     </ResourceCompile>
+    <Manifest>
+      <EnableDpiAwareness>PerMonitorHighDPIAware</EnableDpiAwareness>
+      <AdditionalManifestFiles>$(SolutionDir)vs_props\enable_utf8.manifest;$(SolutionDir)vs_props\os_support.manifest;%(AdditionalManifestFiles)</AdditionalManifestFiles>
+    </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup />
 </Project>
