@@ -6,6 +6,8 @@
 *.cxx text eol=lf
 *.md text eol=lf
 *.txt text eol=lf
+*.git* text eol=lf
+LICENSE text eol=lf
 
 *.sln text eol=crlf
 *.vcxproj text eol=crlf
