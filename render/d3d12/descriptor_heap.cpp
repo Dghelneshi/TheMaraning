@@ -14,6 +14,8 @@ namespace D3D12
 		desc.Flags = shader_visible ? D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE : D3D12_DESCRIPTOR_HEAP_FLAG_NONE;
 		D3DCHECKRESULT(device->CreateDescriptorHeap(&desc, IID_PPV_ARGS(&D3DHeap)));
 
+		SetDebugName(D3DHeap.Get(), GetDescriptorHeapName(type));
+
 		DescriptorSize = device->GetDescriptorHandleIncrementSize(type);
 		DescriptorCount = count;
 		Type = type;
@@ -21,6 +23,6 @@ namespace D3D12
 	}
 	void DescriptorHeap::Shutdown()
 	{
-		// TODO: Clean up state
+		D3DHeap.Reset();
 	}
 }

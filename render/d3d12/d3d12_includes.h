@@ -13,31 +13,39 @@
 
 using Microsoft::WRL::ComPtr;
 
-#if DEBUG
-#define D3DCHECKRESULT(expression) HRESULT CONCAT(res, __LINE__); assert(SUCCEEDED(CONCAT(res, __LINE__) = expression))
-#else
+#ifdef NDEBUG
 #define D3DCHECKRESULT(expression) expression
+#else
+#define D3DCHECKRESULT(expression) HRESULT TM_CONCAT(res, __LINE__) = expression; TM_ASSERT(SUCCEEDED(TM_CONCAT(res, __LINE__)) && #expression)
 #endif
 
 namespace D3D12
 {
 #ifdef DEBUG
-	FORCE_INLINE void SetDebugName(IDXGIObject* pObject, eastl::wstring_view name) {
+	TM_INLINE void SetDebugName(IDXGIObject* pObject, eastl::wstring_view name) {
 		pObject->SetPrivateData(WKPDID_D3DDebugObjectNameW, UINT(name.length() + 1) * 2, name.data());
 	}
-	FORCE_INLINE void SetDebugName(IDXGIObject* pObject, eastl::string_view name) {
+	TM_INLINE void SetDebugName(IDXGIObject* pObject, eastl::string_view name) {
 		pObject->SetPrivateData(WKPDID_D3DDebugObjectName, UINT(name.length() + 1), name.data());
 	}
-	FORCE_INLINE void SetDebugName(ID3D12Object* pObject, eastl::wstring_view name) {
+	TM_INLINE void SetDebugName(ID3D12Object* pObject, eastl::wstring_view name) {
 		pObject->SetName(name.data());
 	}
-	FORCE_INLINE void SetDebugName(ID3D12Object* pObject, eastl::string_view name) {
+	TM_INLINE void SetDebugName(ID3D12Object* pObject, eastl::string_view name) {
 		pObject->SetPrivateData(WKPDID_D3DDebugObjectName, UINT(name.length() + 1), name.data());
 	}
 #else
-	FORCE_INLINE void SetDebugName(IDXGIObject*, eastl::wstring_view) {}
-	FORCE_INLINE void SetDebugName(IDXGIObject*, eastl::string_view) {}
-	FORCE_INLINE void SetDebugName(ID3D12Object*, eastl::wstring_view) {}
-	FORCE_INLINE void SetDebugName(ID3D12Object*, eastl::string_view) {}
+	TM_INLINE void SetDebugName(IDXGIObject*, eastl::wstring_view) {}
+	TM_INLINE void SetDebugName(IDXGIObject*, eastl::string_view) {}
+	TM_INLINE void SetDebugName(ID3D12Object*, eastl::wstring_view) {}
+	TM_INLINE void SetDebugName(ID3D12Object*, eastl::string_view) {}
 #endif
+
+	using DXGIFactoryInterface = IDXGIFactory7; // introduced in 1809
+	using DXGIAdapterInterface = IDXGIAdapter4; // introduced in 1703
+	using D3D12DeviceInterface = ID3D12Device6; // introduced in 1903?
+	using D3D12GraphicsCommandListInterface = ID3D12GraphicsCommandList5; // introduced in 1903?
+
+	static constexpr uint32 BackBufferCount = 2;
+	static constexpr D3D_FEATURE_LEVEL MinFeatureLevel = D3D_FEATURE_LEVEL_11_0;
 }

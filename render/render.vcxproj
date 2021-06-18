@@ -153,6 +153,7 @@
       <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='ASanD|x64'">4100;4127;4189;4324;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='ASan|x64'">4100;4127;4189;4324;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
+    <ClCompile Include="d3d12\command_queue.cpp" />
     <ClCompile Include="d3d12\d3d12_main.cpp" />
     <ClCompile Include="d3d12\descriptor_heap.cpp" />
     <ClCompile Include="d3d12\swap_chain.cpp" />
@@ -162,6 +163,7 @@
     <ClInclude Include="..\thirdparty\D3DX12\d3dx12.h" />
     <ClInclude Include="..\thirdparty\dxc\d3d12shader.h" />
     <ClInclude Include="..\thirdparty\dxc\dxcapi.h" />
+    <ClInclude Include="d3d12\command_queue.h" />
     <ClInclude Include="d3d12\d3d12_includes.h" />
     <ClInclude Include="d3d12\d3d12_main.h" />
     <ClInclude Include="d3d12\descriptor_heap.h" />

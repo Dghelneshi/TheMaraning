@@ -22,27 +22,71 @@ using uint64 = uint64_t;
 //#pragma warning(disable: 4351) //warning C4351: new behavior: elements of array 'x' will be default initialized
 #endif
 
+#define TM_CONCAT_IMPL(x, y) x##y
+#define TM_CONCAT(x, y) TM_CONCAT_IMPL(x, y)
+
+#define TM_STRINGIFY_IMPL(x) #x
+#define TM_STRINGIFY(x) TM_STRINGIFY_IMPL(x)
+
 #ifdef _MSC_VER
-#define FORCE_INLINE __forceinline
+#define TM_INLINE __forceinline
 #elif defined(__GNUC__)
-#define FORCE_INLINE __attribute__((always_inline)) inline
+#define TM_INLINE __attribute__((always_inline)) inline
 #endif
 
-#define CONCAT_IMPL(x, y) x##y
-#define CONCAT(x, y) CONCAT_IMPL(x, y)
-
-// TODO: gcc/clang attributes work very differently here, but I haven't yet figured out how to make a "declare printf-like function" macro with arbitrary arguments
 #ifdef _MSC_VER
-#define PRINTF_FORMAT _Printf_format_string_
+#define TM_NOINLINE __declspec(noinline)
+#elif defined(__GNUC__)
+#define TM_NOINLINE __attribute__((noinline))
+#endif
+
+#ifdef _MSC_VER
+#define TM_DEBUGBREAK __debugbreak()
+#elif defined(__clang__)
+#define TM_DEBUGBREAK __builtin_debugtrap()
 #else
-#define PRINTF_FORMAT
+#define TM_DEBUGBREAK { __asm int 3 }
+#endif
+
+#ifdef NDEBUG
+	#ifdef _MSC_VER
+		#define TM_ASSUME(x) __assume(!!(x))
+	#elif defined(__clang__)
+		#define TM_ASSUME(x) __builtin_assume(!!(x))
+	#else // GCC has __builtin_unreachable() but it may not optimize away side effects in the same way as __builtin_assume()
+		#define TM_ASSUME(x) (void)(x)
+	#endif
+#else
+	#define TM_ASSUME(x) TM_ASSERT(x)
+#endif
+
+#ifdef NDEBUG
+#define TM_ASSERT(x) TM_ASSUME(x)
+#else
+#define TM_ASSERT(x) assert(x)
+#endif
+
+#ifdef NDEBUG
+#define TM_RELEASE_ASSERT(x) do { if (!(x)) TM_DEBUGBREAK; } while(0)
+#else
+#define TM_RELEASE_ASSERT(x) assert(x)
+#endif
+
+#ifdef NDEBUG
+	#ifdef _MSC_VER
+		#define TM_UNREACHABLE __assume(false)
+	#elif defined(__GNUC__)
+		#define TM_UNREACHABLE __builtin_unreachable()
+	#endif
+#else
+	#define TM_UNREACHABLE do { TM_ASSERT(false); std::terminate(); } while(0)
 #endif
 
 template <class T, size_t N>
 constexpr size_t ARRAYCOUNT(const T(&array)[N]) noexcept { return N; }
 
 // NOTE: This is required for EASTL.
-inline void* operator new[](size_t size, const char* name, int flags, unsigned debugFlags, const char* file, int line){
+inline void* operator new[](size_t size, const char* name, int flags, unsigned debugFlags, const char* file, int line) {
 	return operator new[](size);
 }
 inline void* operator new[](size_t size, size_t alignment, size_t alignmentOffset, const char* pName, int flags, unsigned debugFlags, const char* file, int line) {

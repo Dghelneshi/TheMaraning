@@ -15,10 +15,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\platform\win32\win32_main.cpp">
+    <ClCompile Include="..\platform\win32\win32_platform.cpp">
       <Filter>platform</Filter>
     </ClCompile>
-    <ClCompile Include="..\platform\linux\linux_main.cpp">
+    <ClCompile Include="..\platform\linux\linux_platform.cpp">
       <Filter>platform</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">

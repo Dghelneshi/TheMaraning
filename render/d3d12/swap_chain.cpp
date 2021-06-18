@@ -21,7 +21,7 @@ namespace D3D12
 
 		ComPtr<IDXGISwapChain1> swapChain;
 		D3DCHECKRESULT(rs->GetDXGIFactory()->CreateSwapChainForHwnd(
-			rs->GetGraphicsCommandQueue(),        // Swap chain needs the queue so that it can force a flush on it.
+			rs->GetGraphicsCommandQueue().GetD3DQueue(),        // Swap chain needs the queue so that it can force a flush on it.
 			window,
 			&swapChainDesc,
 			nullptr,
@@ -62,7 +62,10 @@ namespace D3D12
 
 	void SwapChain::Shutdown()
 	{
-		// TODO: Clean up state
+		DXGISwapChain.Reset();
+		for (size_t i = 0; i < BackBufferCount; i++) {
+			RenderTargets[i].Reset();
+		}
 	}
 
 	[[nodiscard]] D3D12_RESOURCE_BARRIER SwapChain::GetRenderTargetBarrier(D3D12_RESOURCE_STATES new_state)

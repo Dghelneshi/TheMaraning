@@ -11,13 +11,14 @@ namespace Main
 {
 	int Main(MainArgs args)
 	{
+		TM_SET_THREAD_NAME("Main Thread");
+
 		// ... process argv
 		for (size_t i = 0; i < args.argc; ++i) {
 			Platform::DebugOutputPrintf("%s\n", args.argv[i]);
 		}
 		// delete our copy of argv
 		args.Destroy();
-
 		Platform::Init();
 		Platform::CreateMainWindow(WindowMode::WINDOWED);
 		
@@ -27,13 +28,13 @@ namespace Main
 		if (!d3d->Init())
 		{
 			const char* fltext = nullptr;
-			switch (d3d->MinFeatureLevel) {
+			switch (D3D12::MinFeatureLevel) {
 			case D3D_FEATURE_LEVEL_11_0: fltext = "11_0"; break;
 			case D3D_FEATURE_LEVEL_11_1: fltext = "11_1"; break;
 			case D3D_FEATURE_LEVEL_12_0: fltext = "12_0"; break;
 			case D3D_FEATURE_LEVEL_12_1: fltext = "12_1"; break;
 				//case D3D_FEATURE_LEVEL_12_2: fltext = "12_2"; break;
-			default: assert(false);
+			default: TM_UNREACHABLE;
 			}
 			eastl::string buf(eastl::string::CtorSprintf{}, "Hardware, operating system and driver support for Direct3D 12 feature level %s is required to run this application.", fltext);
 			Platform::DisplayBlockingErrorMessage(buf);

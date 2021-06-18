@@ -91,7 +91,8 @@ namespace Platform
 		OutputDebugStringW(buf.data());
 	}
 
-	void DebugOutputPrintf(PRINTF_FORMAT const char* format, ...)
+	// TODO: use std::format/fmtlib instead
+	void DebugOutputPrintf(const char* format, ...)
 	{
 		thread_local eastl::string buf;
 		va_list args;
@@ -132,7 +133,7 @@ namespace Platform
 			styleEx = WS_EX_APPWINDOW | WS_EX_OVERLAPPEDWINDOW;
 			break;
 		default:
-			assert(false);
+			TM_UNREACHABLE;
 		}
 
 		RECT windowRect = { 0, 0, 1280, 720 };
@@ -193,9 +194,9 @@ using RtlGetVersionFunc = NTSTATUS (WINAPI*)(LPOSVERSIONINFOEXW);
 void WindowsVersionCheck()
 {
 	HMODULE ntdll = GetModuleHandleA("ntdll");
-	assert(ntdll);
+	TM_ASSERT(ntdll);
 	RtlGetVersionFunc RtlGetVersion = (RtlGetVersionFunc) GetProcAddress(ntdll, "RtlGetVersion");
-	assert(RtlGetVersion);
+	TM_ASSERT(RtlGetVersion);
 
 	OSVERSIONINFOEXW osInfo { sizeof(osInfo) };
 	RtlGetVersion(&osInfo);
@@ -210,15 +211,15 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 {
 	WindowsVersionCheck();
 
-	assert(GetACP() == CP_UTF8); // make sure the manifest worked and the Win32 API uses UTF8, works on Win10 1903 or later
+	TM_ASSERT(GetACP() == CP_UTF8); // make sure the manifest worked and the Win32 API uses UTF8, works on Win10 1903 or later
 	const char *locale = setlocale(LC_ALL, ".UTF8"); // enable UTF8 for the CRT, works on Win10 1803 or later
-	assert(locale && (strstr(locale, ".UTF8") || strstr(locale, ".utf8") || strstr(locale, ".UTF-8") || strstr(locale, ".utf-8")));
+	TM_ASSERT(locale && (strstr(locale, ".UTF8") || strstr(locale, ".utf8") || strstr(locale, ".UTF-8") || strstr(locale, ".utf-8")));
 
 	G_hInstance = hInstance;
 
-	int argc;
+	int argc = 0;
 	LPWSTR* argv = CommandLineToArgvW(GetCommandLineW(), &argc); // NOTE: pCmdLine doesn't contain the first argv (executable path), so we need to use GetCommandLineW()
-	assert(argv);
+	TM_ASSERT(argv);
 
 	const char** argv_utf8 = new const char*[argc];
 	for (size_t i = 0; i < argc; ++i) {

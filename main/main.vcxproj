@@ -135,13 +135,13 @@
     <Manifest />
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\platform\linux\linux_main.cpp">
+    <ClCompile Include="..\platform\linux\linux_platform.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='ASanD|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='ASan|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\platform\win32\win32_main.cpp" />
+    <ClCompile Include="..\platform\win32\win32_platform.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>

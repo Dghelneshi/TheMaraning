@@ -22,7 +22,7 @@
       <StringPooling>true</StringPooling>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalOptions>/Zc:ternary /Zc:__cplusplus /utf-8 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/Zc:ternary /Zc:__cplusplus /utf-8 /external:templates- /external:I{SolutionDir}thirdparty %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <ResourceCompile>
       <Culture />

@@ -5,6 +5,7 @@
 #include "thirdparty/dxc/dxcapi.h"
 #include "descriptor_heap.h"
 #include "swap_chain.h"
+#include "command_queue.h"
 
 namespace D3D12
 {
@@ -31,13 +32,14 @@ namespace D3D12
 		void Present();
 		void Shutdown();
 
-		FORCE_INLINE IDXGIFactory4*        GetDXGIFactory()          const { return Factory.Get(); }
-		FORCE_INLINE ID3D12Device*         GetDevice()               const { return m_device.Get(); }
-		FORCE_INLINE const DescriptorHeap* GetRTVDescriptorHeap()    const { return &RTV_Heap; }
-		FORCE_INLINE ID3D12CommandQueue*   GetGraphicsCommandQueue() const { return m_commandQueue.Get(); }
-		FORCE_INLINE D3D12MA::Allocator*   GetGlobalAllocator()      const { return GlobalAllocator; }
+		TM_INLINE IDXGIFactory4*        GetDXGIFactory()          const { return Factory.Get(); }
+		TM_INLINE ID3D12Device*         GetDevice()               const { return m_device.Get(); }
+		TM_INLINE const DescriptorHeap* GetRTVDescriptorHeap()    const { return &RTV_Heap; }
+		TM_INLINE const CommandQueue&	GetGraphicsCommandQueue() const { return GraphicsCommandQueue; }
+		TM_INLINE D3D12MA::Allocator*   GetGlobalAllocator()      const { return GlobalAllocator; }
+		TM_INLINE uint32                GetCurrentFrameIndex()    const { return CurrentFrameIndex; }
+		TM_INLINE D3D_FEATURE_LEVEL     GetMaxFeatureLevel()      const { return MaxFeatureLevel; }
 
-		static constexpr D3D_FEATURE_LEVEL MinFeatureLevel = D3D_FEATURE_LEVEL_11_0;
 
 	private:
 		RenderSystem() = default;
@@ -46,33 +48,31 @@ namespace D3D12
 		void CreateSwapChain();
 		void CreateDescriptorHeaps();
 		void CreateAllocator();
-		void GetHardwareAdapter(IDXGIFactory1* pFactory, IDXGIAdapter1** ppAdapter);
+		D3D_FEATURE_LEVEL GetHardwareAdapterAndFeatureLevel(DXGIFactoryInterface* pFactory, DXGIAdapterInterface** ppAdapter);
 
-		static constexpr uint32 BackBufferCount = 2;
+		D3D_FEATURE_LEVEL MaxFeatureLevel = D3D_FEATURE_LEVEL_1_0_CORE;
+		uint32 CurrentFrameIndex = 0;
 
-		ComPtr<IDXGIFactory4> Factory;
-		ComPtr<IDXGIAdapter1> HardwareAdapter;
+		ComPtr<DXGIFactoryInterface> Factory;
+		ComPtr<DXGIAdapterInterface> HardwareAdapter;
+
 		D3D12MA::Allocator* GlobalAllocator;
-
-		// Debug
-		ComPtr<ID3D12Debug3> DebugController;
-		ComPtr<ID3D12InfoQueue> DebugInfoQueue;
-		ComPtr<ID3D12DebugDevice> DebugDevice;
-
+		// TODO: split into per-frame and use queries to expire old frames (or direct reset for those interfaces that don't need state kept for all frames in flight)
+		
 		ShaderCompiler ShaderCompiler;
 		SwapChain MainWindowSwapChain;
 		DescriptorHeap RTV_Heap;
+		CommandQueue GraphicsCommandQueue;
+		GraphicsCommandList GraphicsCommandList;
 
-		ComPtr<ID3D12Device> m_device;
-		ComPtr<ID3D12CommandAllocator> m_commandAllocator;
-		ComPtr<ID3D12CommandQueue> m_commandQueue;
+		ComPtr<D3D12DeviceInterface> m_device;
+
 		ComPtr<ID3D12PipelineState> m_pipelineState;
-		ComPtr<ID3D12GraphicsCommandList> m_commandList;
 		UINT m_rtvDescriptorSize;
 
 		// Synchronization objects
 		HANDLE m_fenceEvent;
-		ComPtr<ID3D12Fence> m_fence;
+		ComPtr<ID3D12Fence1> m_fence;
 		UINT64 m_fenceValue;
 	};
 }

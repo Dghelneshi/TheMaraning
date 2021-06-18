@@ -10,6 +10,10 @@ namespace D3D12
 	{
 		ComPtr<ID3D12Resource> D3DResource;
 		D3D12_RESOURCE_STATES State = D3D12_RESOURCE_STATE_PRESENT;
+		void Reset() {
+			D3DResource.Reset();
+			State = D3D12_RESOURCE_STATE_PRESENT;
+		}
 	};
 
 	struct SwapChain
@@ -17,10 +21,10 @@ namespace D3D12
 		void Init(HWND window, UINT backbuffer_count);
 		void Shutdown();
 
-		FORCE_INLINE UINT GetCurrentBackBufferIndex() const {
+		TM_INLINE UINT GetCurrentBackBufferIndex() const {
 			return CurBackBufferIndex;
 		}
-		FORCE_INLINE void Present(UINT sync_interval, UINT flags) {
+		TM_INLINE void Present(UINT sync_interval, UINT flags) {
 			D3DCHECKRESULT(DXGISwapChain->Present(sync_interval, flags));
 			CurBackBufferIndex = DXGISwapChain->GetCurrentBackBufferIndex();
 		}
